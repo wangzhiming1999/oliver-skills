@@ -3,7 +3,7 @@
 # 用法: bash scripts/pack-skills-for-clawhub.sh
 set -e
 cd "$(dirname "$0")/.."
-SKILLS="bug-investigation component-api-design design-to-code modified-code-review refactor-safely frontend-performance"
+SKILLS="bug-investigation component-api-design design-to-code modified-code-review refactor-safely frontend-performance accessibility frontend-testing forms-and-validation responsive-layout api-and-data"
 for s in $SKILLS; do
   tar -czf "${s}.tar.gz" -C skills "$s"
   echo "Created ${s}.tar.gz"

@@ -9,7 +9,12 @@ $skills = @(
   "design-to-code",
   "modified-code-review",
   "refactor-safely",
-  "frontend-performance"
+  "frontend-performance",
+  "accessibility",
+  "frontend-testing",
+  "forms-and-validation",
+  "responsive-layout",
+  "api-and-data"
 )
 foreach ($s in $skills) {
   $src = Join-Path "skills" $s

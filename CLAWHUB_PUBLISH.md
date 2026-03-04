@@ -66,7 +66,7 @@ tar -czf bug-investigation.tar.gz -C skills bug-investigation
 - **Git Bash / WSL**：`bash scripts/pack-skills-for-clawhub.sh`
 - **PowerShell**：`.\scripts\pack-skills-for-clawhub.ps1`（生成 zip；若 ClawHub 仅支持 tar.gz 请用上面 shell 脚本）
 
-会得到 6 个压缩包，再逐个在 ClawHub 后台上传。
+会得到 11 个压缩包，再逐个在 ClawHub 后台上传。
 
 ---
 
@@ -81,7 +81,7 @@ tar -czf bug-investigation.tar.gz -C skills bug-investigation
 
 ---
 
-## 五、6 个 Skill 一览
+## 五、Skill 一览（11 个）
 
 | 目录名               | 中文名           | category   |
 |-----------------------|------------------|------------|
@@ -91,6 +91,11 @@ tar -czf bug-investigation.tar.gz -C skills bug-investigation
 | modified-code-review  | 修改代码评审     | development |
 | refactor-safely       | 安全重构         | development |
 | frontend-performance | 前端性能优化     | development |
+| accessibility         | 无障碍 / a11y    | development |
+| frontend-testing      | 前端测试         | development |
+| forms-and-validation  | 表单与校验       | development |
+| responsive-layout     | 响应式与布局     | development |
+| api-and-data          | 接口与数据层     | development |
 
 ---
 
