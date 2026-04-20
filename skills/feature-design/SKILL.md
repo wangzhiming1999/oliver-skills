@@ -500,9 +500,11 @@ Before finalizing, verify:
 
 ### Phase 5: Multi-Role Expert Review
 
-After the design document is generated, AI puts on 7 different "hats" and challenges the design from each perspective. **Each review surfaces issues the team may not have considered** — present ONE AT A TIME, let the team discuss and decide whether to address each issue.
+After the design document is generated, AI puts on 7 different "hats" and challenges the design from each perspective. **一次性输出全部 7 个角色评审，然后统一问哪些 Blocker 需要现在讨论**——不要每个角色结束后单独提问打断节奏。
 
-**Step 5.1: UI/UX Designer Review**
+**Step 5.1: 一次性输出所有 7 个角色评审**
+
+一次性输出全部评审，不要每个角色结束后单独提问打断节奏：
 
 ```
 【UX 设计师评审】
@@ -514,17 +516,10 @@ After the design document is generated, AI puts on 7 different "hats" and challe
 - [UX concern 1]: [Specific issue] → [Suggestion]
 
 📊 用户体验评分: [X/10]
-
 核心问题: [The ONE most important UX issue to address]
-```
 
-Focus: User flow clarity, cognitive load, error prevention, accessibility, consistency, mobile/responsive.
+---
 
-**After presenting, ask: "UX 评审有问题需要讨论吗？"**
-
-**Step 5.2: Software Engineer Review**
-
-```
 【工程师评审】
 
 ✅ 设计完备性:
@@ -537,17 +532,10 @@ Focus: User flow clarity, cognitive load, error prevention, accessibility, consi
 - [Feasibility concern or confirmation]
 
 📊 工程完备性评分: [X/10]
-
 核心问题: [The ONE most critical engineering gap]
-```
 
-Focus: Data model, API design, edge cases, error handling, performance, scalability, technical debt.
+---
 
-**After presenting, ask: "工程评审有问题需要讨论吗？"**
-
-**Step 5.3: Software Architect Review**
-
-```
 【架构师评审】
 
 🏗️ 架构设计:
@@ -558,7 +546,6 @@ Focus: Data model, API design, edge cases, error handling, performance, scalabil
 - [Good architectural decisions]
 
 ⚠️ 架构问题:
-
 DRY / SOLID / 内聚与耦合:
 - [评价] → [建议]
 
@@ -566,17 +553,10 @@ DRY / SOLID / 内聚与耦合:
 - [评价]
 
 📊 架构评分: [X/10]
-
 核心问题: [The ONE most critical architecture issue]
-```
 
-Focus: DRY, SOLID, high cohesion/low coupling, design patterns, Clean Architecture, testability, extensibility.
+---
 
-**After presenting, ask: "架构评审有问题需要讨论吗？"**
-
-**Step 5.4: Security Engineer Review**
-
-```
 【安全评审】
 
 🔒 安全设计:
@@ -591,17 +571,10 @@ Focus: DRY, SOLID, high cohesion/low coupling, design patterns, Clean Architectu
 - 注入攻击风险: [Low/Medium/High]
 
 📊 安全评分: [X/10]
-
 核心问题: [The ONE most critical security issue]
-```
 
-Focus: Auth, input validation, data exposure, injection, CSRF/SSRF, rate limiting, audit trail, 3rd-party deps.
+---
 
-**After presenting, ask: "安全评审有问题需要讨论吗？"**
-
-**Step 5.5: Project Manager Review**
-
-```
 【项目经理评审】
 
 ✅ 流程完备性:
@@ -614,23 +587,13 @@ Focus: Auth, input validation, data exposure, injection, CSRF/SSRF, rate limitin
 - [Risk]: [Impact] → [Mitigation]
 
 📊 流程完备性评分: [X/10]
-
 核心问题: [The ONE most important process gap]
-```
 
-Focus: Requirements traceability, acceptance criteria, dependencies, rollback, testing strategy, release plan.
+---
 
-**After presenting, ask: "项目流程评审有问题需要讨论吗？"**
-
-**Step 5.6: Test Engineer Review (BDD)**
-
-```
 【测试工程师评审】
 
-📋 测试策略:
-- 使用 BDD 格式描述所有测试场景
-
-✅ 测试场景:
+📋 测试场景 (BDD):
 
 ### [功能模块名称]
 
@@ -646,17 +609,10 @@ Focus: Requirements traceability, acceptance criteria, dependencies, rollback, t
   应该 [预期的错误处理]
 
 📊 测试覆盖评分: [X/10]
-
 核心问题: [Any testing gaps or concerns]
-```
 
-BDD rules: Specific scenario names, clear triggers, verifiable outcomes, one path per scenario, directly mappable to test code.
+---
 
-**After presenting, ask: "测试场景评审有问题需要讨论吗？"**
-
-**Step 5.7: DevOps/SRE Engineer Review**
-
-```
 【运维工程师评审】
 
 🚀 部署方案:
@@ -672,15 +628,10 @@ BDD rules: Specific scenario names, clear triggers, verifiable outcomes, one pat
 - 灰度/蓝绿/回滚: [Plan]
 
 📊 运维就绪评分: [X/10]
-
 核心问题: [The ONE most critical ops issue]
 ```
 
-Focus: Deployment complexity, DB migrations, monitoring, rollback, service dependencies, resource requirements.
-
-**After presenting, ask: "运维评审有问题需要讨论吗？"**
-
-**Step 5.8: Review Summary**
+**Step 5.2: Review Summary**
 
 ```
 【综合评审总结】
