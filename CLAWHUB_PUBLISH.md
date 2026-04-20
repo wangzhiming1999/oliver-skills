@@ -105,3 +105,101 @@ tar -czf bug-investigation.tar.gz -C skills bug-investigation
 - **版本**：更新时改 `clawhub.json` 的 `version`，并维护 `CHANGELOG.md`，再重新打包提交。
 
 完成以上步骤后，在 GitHub 建好 **oliver-skill** 仓库并推送本目录，即可按本文在 ClawHub 上架。
+
+---
+
+## 七、常见失败与处理（实战版）
+
+### 1) Slug 冲突（`Slug is already taken`）
+
+报错示例：
+
+```text
+Slug is already taken. Choose a different slug.
+```
+
+处理方式：
+
+- 说明该 slug 已被他人占用（全局唯一）
+- 发布时指定新 slug（建议加项目前缀）
+
+示例命令：
+
+```bash
+clawhub publish "D:/felo/oliver-skill/skills/accessibility" \
+  --slug "oliver-accessibility" \
+  --version 1.0.0 \
+  --changelog "Publish from oliver-skill repository"
+```
+
+命名建议：
+
+- `oliver-<skill-name>`
+- `wzm-<skill-name>`
+
+避免与通用词重名（例如 `accessibility`、`testing`、`search`）。
+
+### 2) 新技能限流（`max 5 new skills per hour`）
+
+报错示例：
+
+```text
+Rate limit: max 5 new skills per hour. Please wait before publishing more.
+```
+
+处理方式：
+
+- 等待 1 小时窗口恢复后重试
+- 优先先发“更新版本”的 skill，再发“全新 skill”
+
+重试示例：
+
+```bash
+clawhub publish "D:/felo/oliver-skill/skills/react-advanced" \
+  --version 1.0.0 \
+  --changelog "Publish from oliver-skill repository"
+```
+
+### 3) 版本已存在（`Version already exists`）
+
+报错示例：
+
+```text
+Version already exists
+```
+
+处理方式：
+
+- 递增版本号后重发（建议 patch +1）
+
+示例：
+
+- `1.0.0` 已存在 -> 改为 `1.0.1`
+- `1.0.1` 已存在 -> 改为 `1.0.2`
+
+发布示例：
+
+```bash
+clawhub publish "D:/felo/oliver-skill/skills/bug-investigation" \
+  --version 1.0.1 \
+  --changelog "Publish from oliver-skill repository"
+```
+
+### 4) 推荐发布顺序（降低失败率）
+
+1. 先发已有 skill 的新版本（不占“新技能配额”）
+2. 再发新技能（每小时最多 5 个）
+3. 若遇冲突，先改 slug 再发
+
+### 5) 发布前快速检查
+
+```bash
+clawhub whoami
+clawhub publish --help
+```
+
+确保：
+
+- 已登录正确账号
+- 每个 skill 目录有 `SKILL.md` + `clawhub.json`（推荐再加 `README.md`）
+- `clawhub.json` 的 `version` 是有效 semver（如 `1.0.0`）

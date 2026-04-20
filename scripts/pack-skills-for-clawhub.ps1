@@ -1,26 +1,28 @@
-# 在 oliver-skill 根目录执行，为 ClawHub 打包 6 个 skills
+# 在 oliver-skill 根目录执行，自动发现并打包所有可发布 skills
 # 用法: .\scripts\pack-skills-for-clawhub.ps1
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $root
-$skills = @(
-  "bug-investigation",
-  "component-api-design",
-  "design-to-code",
-  "modified-code-review",
-  "refactor-safely",
-  "frontend-performance",
-  "accessibility",
-  "frontend-testing",
-  "forms-and-validation",
-  "responsive-layout",
-  "api-and-data"
-)
-foreach ($s in $skills) {
-  $src = Join-Path "skills" $s
-  $dest = Join-Path $root "$s.zip"
-  if (Test-Path $dest) { Remove-Item $dest -Force }
-  Compress-Archive -Path (Join-Path $src "*") -DestinationPath $dest -Force
-  Write-Host "Created $s.zip"
+
+$outputDir = Join-Path $root "clawhub-packages"
+if (!(Test-Path $outputDir)) {
+  New-Item -ItemType Directory -Path $outputDir | Out-Null
 }
-Write-Host "Done. If ClawHub accepts .zip upload each; else use WSL/Git Bash: bash scripts/pack-skills-for-clawhub.sh for .tar.gz"
+
+$skills = Get-ChildItem -Path (Join-Path $root "skills") -Directory |
+  Where-Object { Test-Path (Join-Path $_.FullName "clawhub.json") }
+
+if (-not $skills -or $skills.Count -eq 0) {
+  Write-Host "No publishable skills found (missing clawhub.json)."
+  exit 0
+}
+
+foreach ($skill in $skills) {
+  $name = $skill.Name
+  $dest = Join-Path $outputDir "$name.zip"
+  if (Test-Path $dest) { Remove-Item $dest -Force }
+  Compress-Archive -Path (Join-Path $skill.FullName "*") -DestinationPath $dest -Force
+  Write-Host "Created clawhub-packages/$name.zip"
+}
+Write-Host "Done. Packaged $($skills.Count) skill(s) into clawhub-packages/."
+Write-Host "If ClawHub requires .tar.gz, use WSL/Git Bash: bash scripts/pack-skills-for-clawhub.sh"
